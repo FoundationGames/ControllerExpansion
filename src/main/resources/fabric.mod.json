@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "id": "controllerexpansion",
+  "version": "${version}",
+
+  "name": "Controller Expansion",
+  "description": "Improve in-game UIs and features for use with controller support mods",
+  "authors": [
+    "FoundationGames"
+  ],
+  "contact": {
+    "homepage": "",
+    "sources": ""
+  },
+
+  "license": "LGPLv3",
+  "icon": "assets/controllerexpansion/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "io.github.foundationgames.controllerexpansion.ControllerExpansion"
+    ]
+  },
+  "mixins": [
+    "controllerexpansion.mixins.json"
+  ],
+
+  "accessWidener": "controllerexpansion.accesswidener",
+
+  "depends": {
+    "fabricloader": ">=0.14",
+    "fabric-api": "*",
+    "minecraft": "~1.19.4",
+    "java": ">=17"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}

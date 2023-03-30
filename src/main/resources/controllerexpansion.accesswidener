@@ -1,0 +1,8 @@
+accessWidener v2 named
+
+mutable field net/minecraft/screen/slot/Slot x I
+mutable field net/minecraft/screen/slot/Slot y I
+accessible field net/minecraft/screen/slot/CraftingResultSlot input Lnet/minecraft/inventory/CraftingInventory;
+accessible field net/minecraft/screen/slot/CraftingResultSlot player Lnet/minecraft/entity/player/PlayerEntity;
+
+extendable method net/minecraft/client/gui/screen/recipebook/RecipeGroupButtonWidget renderIcons (Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/item/ItemRenderer;)V

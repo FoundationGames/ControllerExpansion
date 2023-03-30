@@ -1,0 +1,6 @@
+{
+  "ui.button.click": {
+    "replace": true,
+    "sounds": ["random/wood_click"]
+  }
+}

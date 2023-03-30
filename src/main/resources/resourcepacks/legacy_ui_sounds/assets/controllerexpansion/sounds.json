@@ -1,0 +1,18 @@
+{
+  "ui.select": {
+    "replace": true,
+    "sounds": ["controllerexpansion:ui/select"]
+  },
+  "ui.scroll": {
+    "replace": true,
+    "sounds": ["controllerexpansion:ui/scroll"]
+  },
+  "ui.back": {
+    "replace": true,
+    "sounds": ["controllerexpansion:ui/back"]
+  },
+  "ui.deny": {
+    "replace": true,
+    "sounds": ["controllerexpansion:ui/deny"]
+  }
+}

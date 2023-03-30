@@ -1,0 +1,28 @@
+{
+  "ui.select": {
+    "sounds": []
+  },
+  "ui.scroll": {
+    "sounds": [
+      {
+        "name": "controllerexpansion:ui/scroll",
+        "volume": 0.5
+      }
+    ]
+  },
+  "ui.back": {
+    "sounds": []
+  },
+  "ui.deny": {
+    "sounds": [
+      {
+        "name": "controllerexpansion:ui/scroll",
+        "volume": 1,
+        "pitch": 0.5
+      }
+    ]
+  },
+  "ui.craft": {
+    "sounds": ["random/pop"]
+  }
+}
