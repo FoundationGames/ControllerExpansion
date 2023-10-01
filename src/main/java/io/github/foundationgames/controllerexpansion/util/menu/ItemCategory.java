@@ -1,10 +1,9 @@
-package io.github.foundationgames.controllerexpansion.util.crafting;
+package io.github.foundationgames.controllerexpansion.util.menu;
 
 import net.minecraft.block.Blocks;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.*;
-import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.text.Text;
 
 import java.util.List;
@@ -28,7 +27,7 @@ public record ItemCategory(Predicate<ItemStack> filter, String name, ItemStack..
     public static final ItemCategory FOOD_DRINK = new ItemCategory(item -> inAnyOf(item, ItemGroups.FOOD_AND_DRINK),
             "food_drink", stack(Items.CAKE), stack(Items.APPLE), stack(Items.BREAD));
 
-    public static final List<ItemCategory> CATEGORIES =
+    public static final List<ItemCategory> CRAFTING_CATEGORIES =
             List.of(CONSTRUCTION, NATURE_DECOR, UTILITIES_COMBAT, RESOURCES, REDSTONE, FOOD_DRINK, ALL);
 
     public void drawIcon(MatrixStack matrices, MinecraftClient client, int x, int y) {

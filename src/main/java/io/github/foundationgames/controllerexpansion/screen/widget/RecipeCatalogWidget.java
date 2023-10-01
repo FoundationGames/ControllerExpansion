@@ -3,7 +3,8 @@ package io.github.foundationgames.controllerexpansion.screen.widget;
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.systems.RenderSystem;
 import io.github.foundationgames.controllerexpansion.screen.ControllerCraftingScreen;
-import io.github.foundationgames.controllerexpansion.util.crafting.ItemCategory;
+import io.github.foundationgames.controllerexpansion.util.menu.GroupingStrategy;
+import io.github.foundationgames.controllerexpansion.util.menu.ItemCategory;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.*;
 import net.minecraft.client.gui.navigation.NavigationDirection;
@@ -30,7 +31,6 @@ import net.minecraft.util.math.MathHelper;
 import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -82,7 +82,15 @@ public class RecipeCatalogWidget extends DrawableHelper implements RecipeGridAli
         this.screenHandler.populateRecipeFinder(this.recipeMatcher);
         this.client.player.getInventory().populateRecipeFinder(this.recipeMatcher);
 
-        var results = Lists.newArrayList(this.recipes.getResultsForGroup(RecipeBookGroup.CRAFTING_SEARCH));
+        var ungrouped = Lists.newArrayList(this.recipes.getResultsForGroup(RecipeBookGroup.CRAFTING_SEARCH));
+        final var drm = this.client.world.getRegistryManager();
+
+        var results = GroupingStrategy.group(ungrouped).stream().map(list -> {
+            var recipe = new RecipeResultCollection(drm, list);
+            recipe.initialize(this.recipes);
+            return recipe;
+        }).collect(Collectors.toList());
+
         results.forEach(res -> res.computeCraftables(this.recipeMatcher, this.screenHandler.getCraftingWidth(), this.screenHandler.getCraftingHeight(), this.recipes));
         results.removeIf(res ->
                 !res.isInitialized() ||
@@ -291,9 +299,9 @@ public class RecipeCatalogWidget extends DrawableHelper implements RecipeGridAli
     }
 
     public void changeCategory(int by) {
-        int idx = ItemCategory.CATEGORIES.indexOf(this.currentCategory);
-        idx = MathHelper.floorMod(idx + by, ItemCategory.CATEGORIES.size());
-        this.open(ItemCategory.CATEGORIES.get(idx), true);
+        int idx = ItemCategory.CRAFTING_CATEGORIES.indexOf(this.currentCategory);
+        idx = MathHelper.floorMod(idx + by, ItemCategory.CRAFTING_CATEGORIES.size());
+        this.open(ItemCategory.CRAFTING_CATEGORIES.get(idx), true);
     }
 
     public boolean navigate(NavigationDirection nav) {
@@ -477,12 +485,15 @@ public class RecipeCatalogWidget extends DrawableHelper implements RecipeGridAli
             if (this.allRecipes.stream().anyMatch(re -> re != recipe && re.getOutput(this.results.getRegistryManager()).isItemEqual(output))) {
                 var ingredients = recipe.getIngredients();
                 var stacks = ingredients.get((int)((this.time / 60) % ingredients.size())).getMatchingStacks();
-                var ingredient = stacks[(int)((this.time / 20) % stacks.length)];
 
-                matrices.push();
-                matrices.scale(0.5f, 0.5f, 0.5f);
-                client.getItemRenderer().renderInGui(matrices, ingredient, (x * 2) - 1, (y * 2));
-                matrices.pop();
+                if (stacks.length > 0) {
+                    var ingredient = stacks[(int)((this.time / 20) % stacks.length)];
+
+                    matrices.push();
+                    matrices.scale(0.5f, 0.5f, 0.5f);
+                    client.getItemRenderer().renderInGui(matrices, ingredient, (x * 2) - 1, (y * 2));
+                    matrices.pop();
+                }
             }
 
             client.getItemRenderer().renderInGui(matrices, output, x, y);

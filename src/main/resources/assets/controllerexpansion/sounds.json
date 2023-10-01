@@ -23,6 +23,6 @@
     ]
   },
   "ui.craft": {
-    "sounds": ["random/pop"]
+    "sounds": ["random/click_stereo"]
   }
 }

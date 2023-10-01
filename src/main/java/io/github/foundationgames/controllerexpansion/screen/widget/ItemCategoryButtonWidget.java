@@ -2,7 +2,7 @@ package io.github.foundationgames.controllerexpansion.screen.widget;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import io.github.foundationgames.controllerexpansion.screen.ControllerCraftingScreen;
-import io.github.foundationgames.controllerexpansion.util.crafting.ItemCategory;
+import io.github.foundationgames.controllerexpansion.util.menu.ItemCategory;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
 import net.minecraft.client.gui.widget.ClickableWidget;

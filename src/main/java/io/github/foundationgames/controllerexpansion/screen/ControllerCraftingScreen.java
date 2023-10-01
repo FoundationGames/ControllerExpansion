@@ -8,7 +8,7 @@ import io.github.foundationgames.controllerexpansion.screen.widget.ItemCategoryB
 import io.github.foundationgames.controllerexpansion.screen.widget.RecipeCatalogWidget;
 import io.github.foundationgames.controllerexpansion.util.CEUtil;
 import io.github.foundationgames.controllerexpansion.util.SlotPositionRemapper;
-import io.github.foundationgames.controllerexpansion.util.crafting.ItemCategory;
+import io.github.foundationgames.controllerexpansion.util.menu.ItemCategory;
 import net.minecraft.client.gui.navigation.GuiNavigation;
 import net.minecraft.client.gui.navigation.GuiNavigationPath;
 import net.minecraft.client.gui.navigation.NavigationDirection;
@@ -23,7 +23,6 @@ import net.minecraft.screen.AbstractRecipeScreenHandler;
 import net.minecraft.screen.CraftingScreenHandler;
 import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.screen.slot.Slot;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
@@ -79,8 +78,8 @@ public abstract class ControllerCraftingScreen<I extends Inventory, T extends Ab
 
         this.addSelectableChild(this.recipeCatalog);
 
-        int buttonX = this.x + (this.backgroundWidth - ItemCategory.CATEGORIES.size() * 33) / 2;
-        for (var category : ItemCategory.CATEGORIES) {
+        int buttonX = this.x + (this.backgroundWidth - ItemCategory.CRAFTING_CATEGORIES.size() * 33) / 2;
+        for (var category : ItemCategory.CRAFTING_CATEGORIES) {
             this.addDrawableChild(new ItemCategoryButtonWidget(buttonX, this.y - 24, category, this.recipeCatalog));
             buttonX += 33;
         }
@@ -138,7 +137,6 @@ public abstract class ControllerCraftingScreen<I extends Inventory, T extends Ab
         var sounds = this.client.getSoundManager();
         if (!this.controllerRequestingCraft && this.controller.getRequestingPress()) {
             if (this.recipeCatalog.craft()) {
-                CEUtil.playUI(sounds, SoundEvents.UI_BUTTON_CLICK.value(), 1);
                 CEUtil.playUI(sounds, ControllerExpansion.UI_CRAFT, 1);
             } else {
                 CEUtil.playUI(sounds, ControllerExpansion.UI_DENY, 1);

@@ -14,5 +14,9 @@
   "ui.deny": {
     "replace": true,
     "sounds": ["controllerexpansion:ui/deny"]
+  },
+  "ui.craft": {
+    "replace": true,
+    "sounds": ["random/pop"]
   }
 }
